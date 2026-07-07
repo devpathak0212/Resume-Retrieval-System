@@ -1,0 +1,45 @@
+import pandas as pd
+
+job_descriptions = {
+    "HR": "Seeking an HR professional to manage recruitment, employee relations, and benefits administration. Responsibilities include developing HR policies, overseeing onboarding and training programs, handling employee relations and conflict resolution, and ensuring compliance with employment law (FMLA, ADA, EEO). Experience with HRIS systems, staff recruitment and retention, and performance management preferred.",
+    "CHEF": "Looking for an experienced chef to lead kitchen operations and food preparation. Responsibilities include menu planning, sourcing ingredients, managing kitchen staff, maintaining food safety standards, and controlling budgets. Experience with catering, international cuisine, and high-volume food service preferred.",
+    "INFORMATION-TECHNOLOGY": "Seeking an IT professional with experience in enterprise systems design, infrastructure management, and risk mitigation. Responsibilities include hardware/software lifecycle planning, system upgrades, project tracking, and ensuring information assurance and security compliance. Knowledge of product lifecycle management (PLM) and enterprise platforms preferred.",
+    "AVIATION": "Seeking an aviation industry professional with engineering or technical operations background. Responsibilities may include electrical systems design, testing and development of aviation components, workflow process improvement, and CAD-based technical drafting. Strong project management and multitasking skills required.",
+    "BUSINESS-DEVELOPMENT": "Seeking a business development professional to drive growth through client acquisition, partnership building, and market strategy. Responsibilities include identifying new business opportunities, managing client relationships, negotiating contracts, and analyzing market trends to support revenue growth.",
+    "ADVOCATE": "Seeking a legal advocate/attorney to represent and counsel clients across civil or criminal matters. Responsibilities include legal research, drafting filings and contracts, representing clients in court or negotiations, and advising on regulatory compliance. Strong analytical, negotiation, and case management skills required.",
+    "AGRICULTURE": "Seeking an agriculture professional to manage farm operations, crop production, or agribusiness logistics. Responsibilities include overseeing planting and harvest cycles, managing equipment and resources, ensuring regulatory compliance, and optimizing yield and sustainability practices. Experience with agricultural technology and supply chain management preferred.",
+    "APPAREL": "Seeking an apparel industry professional for design, merchandising, or production roles. Responsibilities include garment design, trend forecasting, vendor and supplier coordination, quality control, and production timeline management. Experience with textiles, retail merchandising, and fashion trends preferred.",
+    "ARTS": "Seeking a creative professional for a role in visual or performing arts. Responsibilities include concept development, project execution, collaboration with creative teams, and presentation of finished work to clients or audiences. Strong portfolio and proficiency with relevant creative tools or media required.",
+    "AUTOMOBILE": "Seeking an automotive professional for technical, sales, or service roles within the automotive industry. Responsibilities include vehicle diagnostics and repair, parts and inventory management, customer service, and adherence to safety standards. Technical certification and hands-on mechanical experience preferred.",
+    "BANKING": "Seeking a banking professional to manage customer accounts, transactions, and financial services. Responsibilities include processing deposits/loans, ensuring regulatory compliance, cross-selling financial products, and maintaining accurate account records. Strong customer service and attention to detail required.",
+    "BPO": "Seeking a customer support/BPO professional for inbound or outbound client service operations. Responsibilities include handling customer inquiries, resolving complaints, meeting performance metrics (call handling time, satisfaction scores), and maintaining accurate service records. Strong communication and multitasking skills required.",
+    "CONSTRUCTION": "Seeking a construction professional for site management, project supervision, or skilled trade roles. Responsibilities include overseeing construction schedules, ensuring safety compliance, coordinating subcontractors, and managing budgets and materials. Experience with blueprints, building codes, and project management preferred.",
+    "CONSULTANT": "Seeking a consulting professional to advise clients on business strategy, process improvement, or technical solutions. Responsibilities include conducting analysis, developing recommendations, managing client relationships, and delivering presentations. Strong analytical, communication, and problem-solving skills required.",
+    "DESIGNER": "Seeking a design professional for graphic, product, or UX/UI design roles. Responsibilities include creating visual concepts, collaborating with stakeholders, developing prototypes or mockups, and ensuring brand consistency. Proficiency with design software (Adobe Creative Suite, Figma, or similar) preferred.",
+    "DIGITAL-MEDIA": "Seeking a digital media professional for content creation, social media, or online marketing roles. Responsibilities include producing digital content, managing social media campaigns, analyzing engagement metrics, and collaborating with marketing teams. Experience with SEO, content management systems, and analytics tools preferred.",
+    "ENGINEERING": "Seeking an engineering professional for design, development, or technical project roles. Responsibilities include designing and testing systems or products, ensuring technical specifications are met, collaborating with cross-functional teams, and applying engineering principles to solve technical problems. Relevant engineering degree and technical certifications preferred.",
+    "FINANCE": "Seeking a finance professional for financial analysis, accounting, or planning roles. Responsibilities include preparing financial reports, conducting budget analysis, forecasting, and ensuring regulatory compliance. Strong analytical skills and proficiency with financial software required.",
+    "FITNESS": "Seeking a fitness professional for personal training, coaching, or wellness program management. Responsibilities include designing fitness programs, conducting client assessments, providing nutrition and wellness guidance, and ensuring safe exercise practices. Relevant certification (NASM, ACE, or similar) preferred.",
+    "HEALTHCARE": "Seeking a healthcare professional for clinical, administrative, or patient care roles. Responsibilities include providing patient care or support, maintaining medical records, ensuring compliance with healthcare regulations, and collaborating with medical staff. Relevant clinical certification or licensure preferred.",
+    "PUBLIC-RELATIONS": "Seeking a public relations professional to manage media relations and brand communications. Responsibilities include drafting press releases, managing media inquiries, developing communication strategies, and monitoring brand reputation. Strong writing and stakeholder management skills required.",
+    "SALES": "Seeking a sales professional to drive revenue through client acquisition and account management. Responsibilities include prospecting new clients, managing the sales pipeline, negotiating deals, and meeting sales targets. Strong communication and relationship-building skills required.",
+    "TEACHER": "Seeking an education professional for classroom instruction or curriculum development. Responsibilities include planning and delivering lessons, assessing student progress, managing classroom behavior, and collaborating with parents and staff. Teaching certification and subject-matter expertise preferred.",
+    "ACCOUNTANT": "Seeking an accounting professional for financial record-keeping, reporting, and compliance. Responsibilities include preparing and reviewing financial statements, managing accounts payable/receivable, ensuring tax compliance, and supporting audits. Proficiency with accounting software and strong attention to detail required."
+}
+
+def main():
+    df = pd.DataFrame(list(job_descriptions.items()), columns=['Category', 'JobDescription'])
+    df.to_csv('job_descriptions.csv', index=False)
+    print("Saved job_descriptions.csv")
+    print("Total job descriptions:", len(df))
+
+    # Cross-check against chunk metadata categories
+    chunks = pd.read_csv('..\\chunking\\resume_chunks.csv')
+    chunk_categories = set(chunks['Category'].unique())
+    jd_categories = set(df['Category'].unique())
+
+    print("\nCategories in chunks but missing from job descriptions:", chunk_categories - jd_categories)
+    print("Categories in job descriptions but missing from chunks:", jd_categories - chunk_categories)
+
+if __name__ == "__main__":
+    main()
